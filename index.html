@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' data: blob:; connect-src 'self' data: blob:; worker-src 'self' blob:; manifest-src 'self'; form-action 'none'; base-uri 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Salary Calc — Hourly, Daily, Monthly &amp; Yearly Pay Converter | S3eidat Tools</title>
+<meta name="description" content="Convert pay between hourly, daily, weekly, bi-weekly, monthly and yearly with your own hours and days. Overtime and raise calculators, any currency. Free and private.">
+<meta property="og:title" content="Salary Calc — free, private pay converter">
+<meta property="og:description" content="Hourly, daily, monthly, yearly pay converter. Runs 100% in your browser.">
+<meta property="og:image" content="screenshot.png">
+<link rel="icon" href="kit/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="kit/kit.css">
+<link rel="stylesheet" href="app.css">
+<script src="kit/kit.js"></script>
+</head>
+<body data-tool="salary-calc">
+<main class="s3-main">
+  <section class="s3-hero">
+    <h1>Salary Calc</h1>
+    <p>Type your pay for any period and see it per hour, day, week, month and year, based on your own working hours. Plus overtime and pay-raise calculators.</p>
+  </section>
+
+  <div class="sc-grid">
+    <section class="card stack">
+      <h2>Your pay</h2>
+      <div class="row nowrap">
+        <label class="field grow">Amount
+          <input class="input big-in" id="amt" inputmode="decimal" autocomplete="off" placeholder="0">
+        </label>
+        <label class="field">Currency
+          <select class="select" id="cur"></select>
+        </label>
+      </div>
+      <label class="field">Per
+        <select class="select" id="per">
+          <option value="hour">Hour</option><option value="day">Day</option><option value="week">Week</option><option value="biweek">2 weeks</option>
+          <option value="semimonth">Half month</option><option value="month">Month</option><option value="year">Year</option>
+        </select>
+      </label>
+      <div class="grid-3 tight">
+        <label class="field">Hours / week <input class="input" id="hpw" inputmode="decimal" autocomplete="off"></label>
+        <label class="field">Days / week <input class="input" id="dpw" inputmode="decimal" autocomplete="off"></label>
+        <label class="field">Weeks / year <input class="input" id="wpy" inputmode="decimal" autocomplete="off"></label>
+      </div>
+      <p class="faint">Paid weeks per year: 52 if holidays are paid. Gross pay, before tax and deductions.</p>
+      <p class="faint" id="err" role="alert"></p>
+    </section>
+
+    <section class="card stack">
+      <div class="row between">
+        <h2>Converted</h2>
+        <button class="btn small" id="copy"><svg class="i"><use href="#i-copy"/></svg>Copy</button>
+      </div>
+      <div class="periods" id="periods"></div>
+    </section>
+  </div>
+
+  <div class="grid-2 mt top">
+    <section class="card stack">
+      <h2>Overtime</h2>
+      <div class="grid-2 tight">
+        <label class="field">Overtime hours / week <input class="input" id="ot-h" inputmode="decimal" autocomplete="off"></label>
+        <div class="field">
+          <span>Rate</span>
+          <div class="seg" id="ot-x" role="group" aria-label="Overtime rate">
+            <button type="button" data-v="1.25">1.25×</button><button type="button" data-v="1.5">1.5×</button><button type="button" data-v="2">2×</button>
+          </div>
+        </div>
+      </div>
+      <dl class="receipt" id="ot-res"></dl>
+    </section>
+
+    <section class="card stack">
+      <h2>Pay raise</h2>
+      <div class="grid-2 tight">
+        <label class="field">Raise
+          <span class="adorn"><input class="input" id="rs-p" inputmode="decimal" autocomplete="off"><i>%</i></span>
+        </label>
+        <label class="field"><span>or new pay <span class="faint" id="rs-per">/ month</span></span>
+          <input class="input" id="rs-n" inputmode="decimal" autocomplete="off">
+        </label>
+      </div>
+      <dl class="receipt" id="rs-res"></dl>
+    </section>
+  </div>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
